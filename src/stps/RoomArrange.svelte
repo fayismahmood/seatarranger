@@ -5,14 +5,15 @@
   let rooms = JSON.parse(localStorage.getItem("rooms") || "[]");
 
   let Arrangements: any[] = JSON.parse(localStorage.getItem("arr") || "[]");
-  let classes = [1, 2, 3, 4];
+  let classes:any[] = JSON.parse(localStorage.getItem("class") || "[{}]")?.map((e:any)=>e.no);
   let AvailableInClasses: any[] = [];
+//$:console.log(classes,stds,"wwwwwwwwww");
 
   $: {
     AvailableInClasses = classes.map((cls) => {
       let numofStd = stds.filter((e: any) => e.class == cls).length;
       let placed = Arrangements.filter((e: any) => e.cls == cls).length;
-      //console.log(numofStd,placed,"e");
+   //   console.log(numofStd,placed,"e");
 
       return {
         avail: numofStd - placed,

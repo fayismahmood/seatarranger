@@ -3,7 +3,7 @@
   let rooms = JSON.parse(localStorage.getItem("rooms") || "[]");
 
   let Arrangements: any[] = JSON.parse(localStorage.getItem("arr") || "[]");
-  let classes = [1, 2, 3, 4];
+  let classes:any[] = JSON.parse(localStorage.getItem("class") || "[{}]")?.map((e:any)=>e.no);
 
   function shuffleArray(array: any[]) {
     for (var i = array.length - 1; i > 0; i--) {

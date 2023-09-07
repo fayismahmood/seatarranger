@@ -1,5 +1,5 @@
-<script>
-
+<script lang="ts">
+  import { flip } from "svelte/animate";
 
   let _ = document.createElement("input");
   _.type = "file";
@@ -23,11 +23,13 @@
     }
   };
 
-  let classes = JSON.parse(localStorage.getItem("class") || "[]");
+  let classes:any[] = JSON.parse(localStorage.getItem("class") || "[]");
+  let _stds = JSON.parse(localStorage.getItem("stds") || "[]");
+  $: localStorage.setItem("class", JSON.stringify(classes));
 </script>
 
 <div class="flex">
-  <div class="p-8">
+  <div class="p-8 shadow mx-6">
     <div class="text-lg text-gray-500 mb-2">
       Upload Students' adno and class as a csv file.
     </div>
@@ -37,26 +39,53 @@
       }}
       class="bg-slate-600 text-white px-2 py-0.5 rounded">Upload CSV</button
     >
+    <div>
+      <div class="mt-6 overflow-auto max-h-[65vh] w-max">
+        <table>
+          <thead>
+            <tr class="text-left">
+              <th class="px-3">Adno</th>
+              <th class="px-3">Name</th>
+              <th class="px-3">Class</th>
+            </tr>
+          </thead>
+          {#each _stds as e}
+            <tr class="border-b">
+              <td class="px-3">
+                {e.adno}
+              </td>
+              <td class="px-3">
+                {e.name}
+              </td>
+              <td class="px-3">
+                {e.class}
+              </td>
+            </tr>
+          {/each}
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="ml-16 w-full">
-    <div class="px-4 py-2 flex gap-3 shadow-lg w-full bg-white">
+  <div class="ml-16 w-full max-w-[400px] shadow">
+    <div class="px-4 py-2 flex gap-3  border-b w-full bg-white">
+      <div class="text-lg font-bold text-slate-600">
+        Classes
+      </div>
+      
       <button
         on:click={() => {
           classes.push({ no: null, col: "#ffff" });
           classes = classes;
         }}
-        class="px-2 py-0.5 bg-slate-600 text-white rounded">Add</button
+        class="ml-auto px-2 py-0.5 hover:bg-slate-500 bg-slate-600 text-white rounded">Add</button
       >
-      <button on:click={()=>{
-        localStorage.setItem("class",JSON.stringify(classes))
-      }} class="px-2 py-0.5 bg-slate-600 text-white rounded">Save</button>
     </div>
-    <div class="w-full flex flex-wrap">
-      {#each classes as e, i}
-        <div class="m-2 shadow-lg p-3 rounded">
+    <div class=" w-full flex flex-wrap max-h-[75vh] overflow-auto">
+      {#each classes as e, i (i)}
+        <div animate:flip={{}} class=" shadow px-5 py-3 flex gap-5 w-full">
           <div class="inp">
             <label>Class</label>
-            <input bind:value={classes[i].no} type="number" />
+            <input  bind:value={classes[i].no} type="text" />
           </div>
           <div class="inp">
             <label>color</label>
@@ -66,6 +95,11 @@
               type="color"
             />
           </div>
+          <button on:click={()=>{
+            classes=classes.filter((_,_i)=>(_i!==i))
+          }} class="p-1 text-red-500 rounded-lg m-auto hover:text-red-900 bg-red-200 h-7 w-7">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg>
+          </button>
         </div>
       {/each}
     </div>
@@ -78,11 +112,12 @@
       font-size: small;
       display: block;
     }
-    input {
+    input[type=text] {
       border: 2px solid rgb(178, 175, 175);
-      padding: 5px 10px;
+      padding: 2px 4px;
       outline: none;
       border-radius: 5px;
+      width: 100px;
       &:focus {
         border: 2px solid rgb(31, 48, 80);
       }

@@ -30,7 +30,7 @@
 
 <div class="np px-3 py-5">
 {#each steps as e,i}
-  <button on:click={()=>{actStp=i}} class={`mx-2 px-2 rounded  ${i==actStp?"bg-slate-200 ":""}`}>
+  <button on:click={()=>{actStp=i}} class={`${i==actStp?"bg-slate-200  font-bold text-slate-600 shadow-lg shadow-slate-300":"text-slate-400"} mx-2 px-2 py-0.5    rounded transition-all  `}>
     {e.id}
   </button>
 {/each}

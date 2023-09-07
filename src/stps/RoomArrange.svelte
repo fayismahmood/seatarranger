@@ -22,20 +22,19 @@
     });
   }
   // $:console.log(AvailableInClasses, "eeeeeeeeeeee");
+  $:localStorage.setItem("arr", JSON.stringify(Arrangements));
+  
 </script>
 
 <div>
-  <div class="flex gap-3 px-5 bg-white shadow-lg py-2 sticky z-20 left-0 top-0">
-    <button
-      on:click={() => {
-        localStorage.setItem("arr", JSON.stringify(Arrangements));
-      }}
-      class="bg-slate-600 text-white px-2 py-0.5 rounded"
-    >
-      Save
-    </button>
+  <div class="  px-10 z-50 flex w-full sticky top-0 left-0 pt-5 bg-white bg-opacity-60 backdrop-blur-md">
+    <div>
+      <div class=" text-2xl text-slate-500 font-bold">Rooms</div>
+      <div class="mb-5 text-slate-400">Add, Remove, Edit Rooms</div>
+    </div>
+   
   </div>
-<div class="p-5">
+<div class="p-5 ">
 
     {#each rooms as _rm}
       <div >

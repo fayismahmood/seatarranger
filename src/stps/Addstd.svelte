@@ -4,6 +4,10 @@
   let _ = document.createElement("input");
   _.type = "file";
 
+  let classes: any[] = JSON.parse(localStorage.getItem("class") || "[]");
+  let _stds: any[] = JSON.parse(localStorage.getItem("stds") || "[]");
+  $: localStorage.setItem("class", JSON.stringify(classes));
+
   _.onchange = () => {
     let fl = _.files?.[0];
     if (fl) {
@@ -20,17 +24,13 @@
             return { adno: __[0], name: __[1], class: __[2] };
           });
 
-          console.log(_, "asdfasd");
+          _stds = _;
 
           localStorage.setItem("stds", JSON.stringify(_));
         }
       };
     }
   };
-
-  let classes: any[] = JSON.parse(localStorage.getItem("class") || "[]");
-  let _stds:any[] = JSON.parse(localStorage.getItem("stds") || "[]");
-  $: localStorage.setItem("class", JSON.stringify(classes));
 </script>
 
 <div class="flex">
@@ -43,6 +43,13 @@
         _.click();
       }}
       class="bg-slate-600 text-white px-2 py-0.5 rounded">Upload CSV</button
+    >
+    <button
+      on:click={() => {
+        localStorage.removeItem("stds");
+        _stds = [];
+      }}
+      class="bg-slate-600 text-white px-2 py-0.5 rounded">Clear</button
     >
     <div>
       <div class="mt-6 overflow-auto max-h-[65vh] w-max">

@@ -45,7 +45,7 @@
       <div animate:flip={{}} class="px-5 py-2 flex justify-center gap-10 border-b">
         <div class="inp">
           <label for="">Room Name</label>
-          <input bind:value={rooms[i].name} type="text" />
+          <input bind:value={rooms[i].id} type="text" />
         </div>
         <div class="inp">
           <label for="">row</label>

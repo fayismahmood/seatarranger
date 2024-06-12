@@ -39,7 +39,7 @@
     {#each rooms as _rm}
       <div >
         <div class="text-lg font-bold px-2 my-3">
-          {_rm.name}
+          {_rm.id}
         </div>
         <div>
           <table>

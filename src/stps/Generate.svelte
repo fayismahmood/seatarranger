@@ -32,7 +32,7 @@
         <div
           class="absolute -left-12 top-1/2 -rotate-90 text-xl text-center font-bold bg-green-600 text-white px-2"
         >
-          {_rm.name}
+          {_rm.id}
         </div>
         <div>
           <div class="flex">

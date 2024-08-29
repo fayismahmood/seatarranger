@@ -23,6 +23,8 @@
     ClassWithRanked[e] = _stds;
   });
   // $:console.log(ClassWithRanked);
+
+  let colors = JSON.parse(localStorage.getItem("class") || "[]");
 </script>
 
 <div class="flex">
@@ -59,8 +61,11 @@
                   <div
                     style={`width: 60px;margin: 2px; ${
                       _rm.div == _coli + 1 ? "margin-right:40px;" : ""
+                    }
+                    background-color: ${
+                      colors[colors.findIndex((e) => e?.no == arr?.cls)]?.col
                     }`}
-                    class={` bg-indigo-500   text-lg font-bold text-white rounded-sm   h-8 flex `}
+                    class={`text-lg font-bold text-white rounded-sm   h-8 flex `}
                   >
                     {#if arr && !hided[arr.cls]}
                       <div class="m-auto">
@@ -118,8 +123,8 @@
 <style lang="scss">
   .printArea {
     width: 210mm;
-   // height: 297mm;
-   height: max-content;
+    // height: 297mm;
+    height: max-content;
     place-content: baseline;
   }
 
@@ -132,7 +137,7 @@
     * {
       break-inside: avoid;
     }
-    .printArea{
+    .printArea {
       padding: 20px;
     }
     .np {
